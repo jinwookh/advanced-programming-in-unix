@@ -27,6 +27,12 @@ ex) /dev/cdrom
 When we execute a program file, the effective user ID is usually the real user ID, and the effective group ID is usually the real group ID. However, we can also set a special flag in the file's mode word (st_mode) that says, "When this file is executed, set the effective user ID of the proces to be owner of the file (st_uid)." Similarly, we can set another bit in the file's mode word that causes the effective group ID to be the group owner of the file (st_gid). These two bits in the file's mode word are called the set-user-ID bit and the set-group-ID bit.   
 For example, if the owner of the file is the superuser and if the file's set-user-ID bit is set, then while that program file is running as a process, it has superuser privileges. This happens regardless of the real user ID of the process that executes the file. As an example, the uNIX System that allows anyone to change his or her password, passwd(1), is a set-user-ID program. This is required so that the program can write the new password to the password file, typically either /etc/psswd or /etc/shadow, files that should be writable only by the superuser. Because a process that is running set-user-ID to some other user usually assumes extra permissions, it must be written carefully..
 
+![image](https://user-images.githubusercontent.com/31182783/188317057-3fdd4244-63c6-4ad8-99fa-702726b8e424.png)
+
+![image](https://user-images.githubusercontent.com/31182783/188317036-6a2e4232-0b4a-4942-a8b9-4424ea5652ca.png)
+
+see https://heather.cs.ucdavis.edu/~matloff/UnixAndC/CLanguage/SetUserID.html
+
 # file.hole
 ```
 gcc -o create_hole_file create_hole_file.c
