@@ -1,5 +1,5 @@
 # fmemopen exercise
-Advance Programming in the Unix Environment 172p
+Advance Programming in the Unix Environment 172p    
 fmemopen 예제의 목적은 flush가 어떻게 동작하는지 확인하는 것이다.
 fflush를 사용하지 않으면 buffer에는 내용이 들어가면 안 된다.
 그리고 fseek, fclose를 사용하면 자동으로 flush가 된다.
@@ -32,7 +32,7 @@ second_caveat.c 예제는input stream을 받을 때 output stream이 자동으�
 one line going on..
  here's the second one.
 ```
-핵심은 here's the second one이 언제 출력되는가 인데, 실행하면 input을 받기 직전에 출력된다. 즉, input i/o 요청은 output stream이 flush되도록 만든다.
+핵심은 here's the second one이 언제 출력되는가 인데, 실행하면 input을 받기 직전에 출력된다. 즉, input i/o 요청은 output stream이 자동으로 flush되게 한다.
 
 one line going on과 here's the second one 사이에 `\n`이 있기 때문에, fputs로 해당 문자열을 출력할 경우 one line going on만 출력된다. here's the second one은 버퍼에 남아 있다.
 
