@@ -17,6 +17,14 @@ Unfortunately, in the UNIX environment, flush means two different things. In ter
 3. Unbuffered. The standard I/O library does not buffer the characters. If we write 15 characters with the standard I/O fputs function, for example. we expect these 15 characters to be output as soon as possible, probably with the write function from Section 3.8.
 
    The standard error stream, for example , is normally unbuffered so that any error messages are displayed as quickly as possible, regardless of whether they contain a newline.
+   
+ISO C requires the following buffering characteristics:
+- Standard input and standard output are fully buffered, if and only if they do not refer to an interactive device.
+- Standard error is never fully buffered.
+
+This, hoever, doesn't tell us whether standard input and standard output are unbuffered or line buffered if they refer to an interactive device and whether standard error should be unbuffered or line buffered. Most implementations default to the following type of buffering:
+- `Standard error is always unbuffered.`
+- `All other streams are line buffered if they refer to a terminal device; otherwise, they are full buffered.`
 
 
 # fmemopen exercise
