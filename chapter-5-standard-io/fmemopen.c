@@ -14,7 +14,7 @@ int main() {
 		printf("fmemopen failed");
 	printf("initial buffer contents: %s\n", buf);
 	fprintf(fp, "hello, world");
-	printf("before flush: %s\n", buf);
+	printf("before fflush: %s\n", buf);
 	fflush(fp);
 	printf("after fflush: %s\n", buf);
 	printf("len of string in buf = %ld\n", (long)strlen(buf));
