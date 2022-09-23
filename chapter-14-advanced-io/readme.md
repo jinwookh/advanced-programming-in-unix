@@ -8,6 +8,9 @@
 - Certain ioctl operations
 - Some of the interprocess communications functions
 
+# 14.4 I/O multiplexing
+https://slideplayer.com/slide/16886668   
+https://notes.shichao.io/unp/ch6   
 
 # nonblocking-write.c
 O_NONBLOCK flag 동작을 확인하는 예제다.
@@ -43,6 +46,4 @@ nwrite = -1, errno = 35
 ** errno = 35는 EAGAIN 에러다.
 man 2 intro에 보면 `Resource temporarily unavailable.  This is a temporary condition and later calls to the same routine may complete normally.`.  
 이라고 나와 있다.
-
-
 
