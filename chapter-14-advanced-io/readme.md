@@ -12,6 +12,29 @@
 https://slideplayer.com/slide/16886668   
 https://notes.shichao.io/unp/ch6   
 
+select function   
+ex)   
+```
+FD_ZERO(&rset);
+for(;;) {
+	FD_SET(fileno(fp), &rset);
+	FD_SET(sockfd, &rset);
+	maxfdp1 = max(fileno(fp), sockfd) + 1;
+	select(maxfdp1, &rset, NULL, NULL, NULL);
+	if (FD_ISSET(sockfd, &rset)) {
+		/* socket is readable */
+		readline(sockfd, recvline, MAXLINE);
+		fputs(recvline, stdout);
+	}
+	if (FD_ISSET(fileno(fp), &rset)) {
+		/* input is readable */
+		fgets(sendline, MAXLINE, fp);
+		write(sockfd, sendline, strlen(sendline));
+	}
+}
+```
+
+
 # nonblocking-write.c
 O_NONBLOCK flag 동작을 확인하는 예제다.
 
