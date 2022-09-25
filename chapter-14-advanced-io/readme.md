@@ -34,6 +34,16 @@ for(;;) {
 }
 ```
 
+# 14.5.2 BSD Asynchronous I/O
+Asynchronous I/O ion BSD-derived systems is a combination of two signals: SIGIO and SIGURG.   
+The former is the general asynchronous I/O signal, and the latter is used only to notify the process that out-of-band data has arrived on a network connection.   
+To receive the SIGIO signal, we need to perform three steps.
+1. Establsish a signal handler for SIGIO, by calling either signal or sigaction.
+2. Set the process ID or process group ID to receive the signal for the descriptor, by calling fcntl with a command of F_SETOWN.
+3. Enable asynchronous I/O on the descriptor by calling fnctl with a command of F_SETFL to set the O_ASYNC file status flag.   
+Step 3 can be performed only on descriptors that refer to terminals or networks, which is a fundamental limitaiton of the BSD asyncrhonous I/O facility.   
+For the SIGURG signal, we need perform only steps 1 and 2. SIGURG is generated only for descriptors that refer to network connections that support out-of-band data, such as TCP connections.
+
 
 # nonblocking-write.c
 O_NONBLOCK flag 동작을 확인하는 예제다.
