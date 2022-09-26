@@ -80,3 +80,10 @@ nwrite = -1, errno = 35
 man 2 intro에 보면 `Resource temporarily unavailable.  This is a temporary condition and later calls to the same routine may complete normally.`.  
 이라고 나와 있다.
 
+# multiplex-write.c
+다음 예제를 그대로 구현했다.   
+https://engineering.linecorp.com/ko/blog/do-not-block-the-event-loop-part1/
+
+** 
+https://github.com/jinwookh/linux-c-example/tree/main/chapter-bonus-tcp-chat
+위 파일의 chat_client로multiplex-select 서버를 호출하면, client의 두 번째 발송은 echo되지 않는다. 이유는 모르겠다.
