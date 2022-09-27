@@ -86,4 +86,6 @@ https://engineering.linecorp.com/ko/blog/do-not-block-the-event-loop-part1/
 
 ** 
 https://github.com/jinwookh/linux-c-example/tree/main/chapter-bonus-tcp-chat
-위 파일의 chat_client로multiplex-select 서버를 호출하면, client의 두 번째 발송은 echo되지 않는다. 이유는 모르겠다.
+위 파일의 chat_client로multiplex-select 서버를 호출하면, client의 두 번째 발송은 echo되지 않는다. 이유는 모르겠다.   
+-> buffer size를1024로 늘리니, client의 두 번째 발송이 echo되지 않는 현상이 사라졌다.   
+-> client에서 1024byte만큼 메시지를 보내고 있어, 서버에서도 1024바이트만큼 read할 수 있도록 버퍼 크기를 1024로 수정했다.
