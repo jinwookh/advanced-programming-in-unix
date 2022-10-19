@@ -15,13 +15,26 @@ gcc -o get-pgid-sessionid get-pgid-sessionid.c
 ```
 parent process's group id: 93890
 parent process's session id: 32298
+
 child process's group id: 93890
 child process's session id: 32298
 after setting new pgid -> pgid: 93891
 after setting new session id -> sid: 32298
 ```
+You can see that child's session id have never changed.   
+The reason is that child became process group leader of new process group after calling setpgid.   
+`setsid` gives error if process is already a process group leader.
+   
+If you remove setting pgid in this code,
+```
+// setpgid(0, 0);
+```
 
-At first, parent and child has same process group id, which is parent process id.   
-After child set process group id, process group id of child is changed to child's pid.   
-Note that session id has not changed even though setsid was called at child process. This is because child process became process group leader after calling setpgid.   
-However, have not found why setsid is not permitted to process group leader...
+You can see that new session is created.
+```
+$child process's group id: 99805
+child process's session id: 99291
+after setting new pgid -> pgid: 99806
+after setting new session id -> sid: 99806
+```
+
