@@ -38,3 +38,28 @@ after setting new pgid -> pgid: 99806
 after setting new session id -> sid: 99806
 ```
 
+## getpgrp-tcgetsid
+1. compile it
+```
+gcc -o getpgrp-tcgetsid getpgrp-tcgetsid.c
+```
+
+2. run it
+```
+./getpgrp-tcgetsid
+```
+
+3. example result
+```
+process's group id: 8364
+process's session id: 99291
+get foreground process group of fd 0: 8364
+get foreground process group of fd 1: 8364
+get foreground process group of fd 2: 8364
+get process group id of session leader of fd 0: 99291
+get process group id of session leader of fd 1: 99291
+get process group id of session leader of fd 2: 99291
+```
+
+tcgetpgrp returns foreground process group associated with the terminal open on fd.   
+tcgetsid funciton allows an application to obtain the process group ID for the session leader given a file descriptor for the controlling TTY.
