@@ -8,7 +8,7 @@ static void sig_hup(int signo) {
 }
 
 static void print_ids(char *name) {
-	printf("%s: pid = %ld, ppid = %ld, pgroupid = %ld, foreground pgroupid = %ld\n", name, (long) getpid(), (long)getppid(), (long)getpgrp(), (long)tcgetpgrp(STDIN_FILENO));
+	printf("%s: pid = %ld, ppid = %ld, pgroupid = %ld, foreground pgroupid = %ld, session id= %ld\n", name, (long) getpid(), (long)getppid(), (long)getpgrp(), (long)tcgetpgrp(STDIN_FILENO), (long)getsid(STDIN_FILENO));
 }
 
 

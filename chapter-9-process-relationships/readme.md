@@ -78,9 +78,9 @@ gcc -o orphaned-process-group orphaned-process-group.c
 
 3. example result
 ```
-parent: pid = 25327, ppid = 23720, pgroupid = 25327, foreground pgroupid = 25327
-child: pid = 25328, ppid = 25327, pgroupid = 25327, foreground pgroupid = 25327
-SIGHUP received, pid = 25328
-child: pid = 25328, ppid = 1, pgroupid = 25327, foreground pgroupid = 25327
+parent: pid = 39111, ppid = 23720, pgroupid = 39111, foreground pgroupid = 39111, session id= 23719
+child: pid = 39112, ppid = 39111, pgroupid = 39111, foreground pgroupid = 39111, session id= 23719
+SIGHUP received, pid = 39112
+child: pid = 39112, ppid = 1, pgroupid = 39111, foreground pgroupid = 23720, session id= 23719
 read error 5 on controlling TTY
 ```
