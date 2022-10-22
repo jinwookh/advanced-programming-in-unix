@@ -63,3 +63,24 @@ get process group id of session leader of fd 2: 99291
 
 tcgetpgrp returns foreground process group associated with the terminal open on fd.   
 tcgetsid funciton allows an application to obtain the process group ID for the session leader given a file descriptor for the controlling TTY.
+
+
+## orphaned-process-group
+1. compile it
+```
+gcc -o orphaned-process-group orphaned-process-group.c
+```
+
+2. run it
+```
+./orphaned-process-group
+```
+
+3. example result
+```
+parent: pid = 25327, ppid = 23720, pgroupid = 25327, foreground pgroupid = 25327
+child: pid = 25328, ppid = 25327, pgroupid = 25327, foreground pgroupid = 25327
+SIGHUP received, pid = 25328
+child: pid = 25328, ppid = 1, pgroupid = 25327, foreground pgroupid = 25327
+read error 5 on controlling TTY
+```
