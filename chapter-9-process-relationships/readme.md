@@ -84,3 +84,5 @@ SIGHUP received, pid = 39112
 child: pid = 39112, ppid = 1, pgroupid = 39111, foreground pgroupid = 23720, session id= 23719
 read error 5 on controlling TTY
 ```
+read error 5 gives error because calling process is orphaned.   
+see man 2 read for error code 5.
