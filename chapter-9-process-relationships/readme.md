@@ -86,3 +86,19 @@ read error 5 on controlling TTY
 ```
 read error 5 gives error because calling process is orphaned.   
 see man 2 read for error code 5.
+
+definition of orphaned process group in the book:   
+parent of every member is either itself a member of the group or is not a member of the group's session.   
+Another way of saying this si that the process group is not orphaned as long as a process in the group has a parent in a differen process group but in the same ssion.   
+
+definition of orphaned process group in gnu.org:   
+process groups that continue running even after the session leader has terminated are marked as orphaned process group.   
+   
+Reading source code can help.   
+see will_become_orphaned_pgrp method in exit.c:   
+https://github.com/torvalds/linux/blob/1440f576022887004f719883acb094e7e0dd4944/kernel/exit.c
+
+Note that exit.c checks whether there is stopped jobs when sending SIGHUP signal torphaned process group.
+Maybe that's why SIGHUP is not sent to child process if kill(getpid(), SIGTSTP) code is removed from orphaned-process-group.c
+
+
