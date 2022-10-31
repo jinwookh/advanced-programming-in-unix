@@ -5,3 +5,27 @@ Signals are software interrupts. Most nontrivial application programs need to de
 ...
 
 
+## signal-exercise
+1. compile it
+```
+gcc -o signal-exercise signal-exercise.c
+```
+
+2. run it
+```
+./signal-exercise
+```
+
+3. run command kill to signal-exercise process at other window
+example:   
+```
+kill -USR1 33333
+kill -USR2 33333
+```
+
+4. At window of signal-exercise, you will see:   
+```
+received SIGUSR1
+received SIGUSR2
+```
+
