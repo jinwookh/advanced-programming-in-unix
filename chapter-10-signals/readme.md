@@ -29,3 +29,35 @@ received SIGUSR1
 received SIGUSR2
 ```
 
+This example is from Advanced Programming in the Unix Environment figure 10.2.
+
+## noreentrant-function.c
+1. compile it
+```
+gcc -o noreentrant-function noreentrant-function.c
+```
+
+2. run it
+```
+./noreentrant-function
+```
+
+3. example result
+```
+getpwnam error
+Segmentation fault: 11
+```
+Most of the results are shown like above.   
+However, it is not determined to single result since there is possibility that Segmentation fault would not happen.(which is pretty rare)   
+
+
+explanation:   
+SIGALARM signal is invoked at every 200ms.   
+Since getpwnam is nonreentrant function, receiving signal in the middle of getpwnam can be dangerous.   
+If getpwnam called free, and the signal was received right after, then signal handler called free, at last data structures maintained by malloc and free can be corrupted.
+
+
+This example is from Advanced Programming in the Unix Environment figure 10.5.   
+At the book, alarm(1) was placed.   
+However, alarm(1) was not enought to invoke segmentation fault. It could not show feature of nonreentrant function since nonreentrant function getpwnam ended before 1 second passed.   
+So I changed to setitimer function, making alarm goes on every 200ms. This made signal handler intervene through middle of the getpwnam function.
