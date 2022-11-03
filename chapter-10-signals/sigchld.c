@@ -20,7 +20,7 @@ int main() {
 		exit(0);
 	}
 
-	pause();
+	pause(); // pause until signal is received
 	exit(0);
 }
 

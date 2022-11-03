@@ -61,3 +61,20 @@ This example is from Advanced Programming in the Unix Environment figure 10.5.
 At the book, alarm(1) was placed.   
 However, alarm(1) was not enought to invoke segmentation fault. It could not show feature of nonreentrant function since nonreentrant function getpwnam ended before 1 second passed.   
 So I changed to setitimer function, making alarm goes on every 200ms. This made signal handler intervene through middle of the getpwnam function.
+
+## sigchld.c
+1. compile it
+```
+gcc -o sigchld sigchld.c
+```
+
+2. run it
+```
+./sigchld
+```
+
+3. example output
+```
+SIGCLD received
+pid = 47973
+```
