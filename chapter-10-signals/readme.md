@@ -78,3 +78,24 @@ gcc -o sigchld sigchld.c
 SIGCLD received
 pid = 47973
 ```
+
+
+## sleep1.c sleep2.c
+1. compile it
+```
+gcc -o sleep1 sleep1.c
+```
+
+2. run it
+```
+./sleep1
+```
+
+3. example output
+```
+sleep starts...
+sleep done!
+```
+
+sleep1, sleep2 both implements sleep function.   
+Difference is that sleep2 uses setjmp and longjmp to prevent case of pausing forever.(which was capable in sleep1)
