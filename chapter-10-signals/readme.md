@@ -99,3 +99,24 @@ sleep done!
 
 sleep1, sleep2 both implements sleep function.   
 Difference is that sleep2 uses setjmp and longjmp to prevent case of pausing forever.(which was capable in sleep1)
+
+
+## sleep2_interfere
+1. compile it
+```
+gcc -o sleep2_interfere sleep2_interfere.c
+```
+
+2. run it
+```
+./sleep2_interfere
+```
+
+3. example result
+```
+sleep starting..
+^C
+sig_int handling starting..
+sleep end!
+```
+sig_int handler never went to end at above example, because sig_alarm handler made through end of the program.
