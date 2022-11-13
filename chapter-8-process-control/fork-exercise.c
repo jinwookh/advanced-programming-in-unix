@@ -13,7 +13,8 @@ int main (void) {
 		printf("write error\n");
 		exit(1);
 	}
-	
+ 	printf("before fork\n");
+
 	if ((pid = fork()) < 0) {
 		printf("fork error\n");
 		exit(1);
