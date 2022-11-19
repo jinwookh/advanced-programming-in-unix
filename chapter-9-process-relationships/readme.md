@@ -99,6 +99,6 @@ see will_become_orphaned_pgrp method in exit.c:
 https://github.com/torvalds/linux/blob/1440f576022887004f719883acb094e7e0dd4944/kernel/exit.c
 
 Note that exit.c checks whether there is stopped jobs when sending SIGHUP signal torphaned process group.
-Maybe that's why SIGHUP is not sent to child process if kill(getpid(), SIGTSTP) code is removed from orphaned-process-group.c
+Maybe that's why SIGHUP is not sent to child process if kill(getpid(), SIGTSTP) code is removed from orphaned-process-group.c.(There was no stopped jobs at child process, so SIGHUP ws not sent to child process)
 
 
