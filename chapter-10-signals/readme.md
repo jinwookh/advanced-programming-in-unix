@@ -120,3 +120,42 @@ sig_int handling starting..
 sleep end!
 ```
 sig_int handler never went to end at above example, because sig_alarm handler made through end of the program.
+
+## signal_mask
+1. compile it
+```
+gcc -std=c99 -D_GNU_SOURCE -o signal_mask signal_mask.c
+```
+
+2. run it
+```
+./signal_mask
+```
+
+3. example result
+```
+blocked signal: 
+```
+Above result means that there is no blocked signal.
+
+## signal-pending
+1. compile it
+```
+gcc -std=c99 -D_GNU_SOURCE -o signal-pending signal-pending.c
+```
+
+2. run it
+```
+./signal-pending
+```
+
+3. example result
+```
+^\
+SIGQUIT pending
+caught SIGQUIT
+SIGQUIT unblocked
+^\Quit: 3
+```
+Use ctrl+\ to manually send SIGQUIT signal.   
+Also note that signal is not queued. It means that no matter how many signal you generate, signal handling function will be executed once for consecutive signals.
