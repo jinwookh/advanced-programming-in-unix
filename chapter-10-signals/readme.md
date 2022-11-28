@@ -159,3 +159,27 @@ SIGQUIT unblocked
 ```
 Use ctrl+\ to manually send SIGQUIT signal.   
 Also note that signal is not queued. It means that no matter how many signal you generate, signal handling function will be executed once for consecutive signals.
+
+
+## sigaction
+1. compile it
+```
+gcc -o sigaction sigaction.c
+```
+
+2. run it
+```
+./sigaction
+```
+
+3. example result
+```
+received SIGUSR1
+received SIGUSR2
+
+```
+You need give USR1 or USR2 signal to sigaction process.   
+Use `kill -USR1 process_id`,for example.   
+
+This exercise is from `Advanced Programming in the Unix Environment` figure 10.18.
+It implements signal function with sigaction function.
