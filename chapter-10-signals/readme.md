@@ -183,3 +183,31 @@ Use `kill -USR1 process_id`,for example.
 
 This exercise is from `Advanced Programming in the Unix Environment` figure 10.18.
 It implements signal function with sigaction function.
+
+## sigsuspend
+1. compile it
+```
+gcc -o sigsuspend sigsuspend.c
+```
+
+2. run it
+```
+./sigsuspend
+```
+
+3. example result
+```
+program start: 
+in critical region:  SIGINT
+^C
+ in sig_int:  SIGINT SIGUSR1
+after return from sigsuspend:  SIGINT
+program exit: 
+```
+1. At first, there was no blocked signals at program start because it was default setting.
+2. in critical region, SIGINT was added to blocked signal set intentionally.
+3. interrupt received.
+4. at interrupt handler, SIGINT SIGUSR1 two signals are added in blocked signal set.   
+Both are added because SIGUSR1 was added by sigsuspend function by parameter, and SIGINT was added automatically by SIGINT interrupt.
+5. after rertun from sigsuspend, signal mask was restored to the part where critical region was going on. SIGUSR1 is gone because sigsuspend function was returned.
+6. At program exit, there is no signals in blocked set. This is whole blocked set returned to default intentionally.
