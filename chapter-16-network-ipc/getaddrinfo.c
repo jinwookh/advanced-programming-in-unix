@@ -91,6 +91,9 @@ int main(int argc, char *argv[]) {
 	int err;
 	char abuf[INET_ADDRSTRLEN];
 
+	fflush(stdout);
+	
+
 	if (argc != 3){
 		printf("usage: %s nodename service", argv[0]);
 		exit(1);
@@ -103,6 +106,7 @@ int main(int argc, char *argv[]) {
 	hint.ai_canonname = NULL;
 	hint.ai_addr = NULL;
 	hint.ai_next = NULL;
+	
 	if ((err = getaddrinfo(argv[1], argv[2], &hint, &ailist)) != 0) {
 		printf("getaddrinfo error: %s", gai_strerror(err));
 		exit(1);
