@@ -64,23 +64,33 @@ void server(int sockfd) {
 
 
 int main(int argc, char *argv[]) {
-	struct sockaddr_in serv_addr;
-	int sockfd;
+	struct addrinfo *ailist, *aip;
+	struct addrinfo hint;
+	int sockfd, err, n;
 
 	if (argc != 1) {
-		printf("usage:ruptimed");
+		printf("usage:no arguments");
 		exit(1);
 	}
 
-	memset(&serv_addr, 0, sizeof(serv_addr));
-        serv_addr.sin_family = AF_INET;
-        serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-        serv_addr.sin_port = htons(atoi("1234"));	
+	memset(&hint, 0, sizeof(hint));
+	hint.ai_flags = AI_CANONNAME;
+	hint.ai_socktype = SOCK_DGRAM;
+	hint.ai_canonname = NULL;
+	hint.ai_addr = NULL;
+	hint.ai_next = NULL;
 
-	if ((sockfd = initserver(SOCK_DGRAM, (struct sockaddr*) &serv_addr, sizeof(serv_addr), QLEN)) >= 0) {
-		printf("server initiated. ready to response.\n");
-		server(sockfd);
-		exit(0);
+	if ((err = getaddrinfo("localhost", "1234", &hint, &ailist)) != 0) {
+		printf("ruptimed: getaddrinfo error: %s\n", gai_strerror(err));
+		exit(1);
+	}
+
+	for (aip = ailist; aip != NULL; aip = aip->ai_next) {
+		if ((sockfd = initserver(SOCK_DGRAM, aip->ai_addr, aip->ai_addrlen, 0)) >= 0) {
+			server(sockfd);
+			exit(0);
+		}
 	}
 	exit(1);
+
 }
