@@ -7,18 +7,18 @@
 #include <sys/time.h>
 #include <sys/select.h>
 
-#define BUF_SIZE 100
+#define BUF_SIZE 500
 void error_handling(char *buf);
 
 int main(int argc, char *argv[]) {
 	int serv_sock, client_sock;
 	struct sockaddr_in serv_addr, client_addr;
 	struct timeval timeout;
-	
+	// 파일 상태 테이블 선언	
 	fd_set reads, cpy_reads;
 
 	socklen_t addr_size;
-	int fd_max, str_len, fd_num, i;
+	int fd_max, str_len, fd_num, i, str_wrote_len;
 	char buf[BUF_SIZE];
 
 	printf("before doing argument check!\n");
@@ -41,8 +41,8 @@ int main(int argc, char *argv[]) {
 		error_handling("listen() error");
 	printf("bind success!!\n");
 
-	FD_ZERO(&reads);
-	FD_SET(serv_sock, &reads);
+	FD_ZERO(&reads); // fd_set 테이블을 초기화한다.
+	FD_SET(serv_sock, &reads); // 서버 소켓(리스팅 소켓)의 이벤트 검사를 위해 서버 소캣 1개를 fd_Set 테이블에 추가한다.
 	fd_max = serv_sock;
 
 	while(1) {
@@ -57,25 +57,27 @@ int main(int argc, char *argv[]) {
 			continue;
 
 		for (i=0; i<fd_max+1; i++) {
-			if (FD_ISSET(i, &cpy_reads)) {
-				if (i == serv_sock) {
+			if (FD_ISSET(i, &cpy_reads)) { // fd_set 테이블을 검사한다.
+				if (i == serv_sock) { // 서버 소켓(리스닝 소켓)에 이벤트(연결 요청) 발생
 					addr_size = sizeof(client_addr);
 					client_sock = accept(serv_sock, (struct sockaddr*)&client_addr, &addr_size);
-					FD_SET(client_sock, &reads);
+					FD_SET(client_sock, &reads);// fd_set 테이블에 클라이언트 소켓 디스크립터 1개를 추가한다.
 					if (fd_max < client_sock)
 						fd_max = client_sock;
 					printf("connected client: %d \n", client_sock);
 				}
 
-				else {
+				else { // 클라이언트와 연결된 소켓에 이벤트 발생
 					str_len = read(i, buf, BUF_SIZE);
+					printf("read contents: %s, from %d\n", buf, i);
 					if (str_len == 0) {
 						FD_CLR(i, &reads);
 						close(i);
 						printf("closed client: %d \n", i);
 					} 
 					else {
-						write(i, buf, str_len);
+						str_wrote_len = write(i, buf, str_len);
+						printf("wrote contents to %d, size: %d\n", i, str_wrote_len);
 					}
 				}
 			}
