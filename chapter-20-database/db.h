@@ -13,7 +13,7 @@ char *db_nextrec(DBHANDLE, char *);
 
 #define DB_INSERT 1
 #define DB_REPLACE 2
-#define DB_STORE
+#define DB_STORE 3
 
 #define IDXLEN_MIN 6
 #define IDXLEN_MAX 1024
