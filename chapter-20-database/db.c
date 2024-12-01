@@ -370,8 +370,9 @@ static void _db_writeidx(DB *db, const char * key, off_t offset, int whence, off
 	int len;
 
 	if ((db->ptrval = ptrval) < 0 || ptrval > PTR_MAX)
-		printf("_db_writeidx: invalid ptr: %lld", ptrval);
+		printf("_db_writeidx: invalid ptr: %ld", ptrval);
 	sprintf(db->idxbuf, "%s%c%lld%c%ld\n", key, SEP, (long long)db->datoff, SEP, (long)db->datlen);
+	len = strlen(db->idxbuf);
 	if (len < IDXLEN_MIN || len > IDXLEN_MAX)
 		printf("_db_writeidx: invalid length");
 	sprintf(asciiptrlen, "%*lld%*d", PTR_SZ, (long long)ptrval, IDXLEN_SZ, len);
@@ -546,6 +547,10 @@ int main(void) {
 		printf("db_store error for beta");
 	if (db_store(db, "gamma", "record3", DB_INSERT) != 0)
 		printf("db_store error for gamma");
+	if (db_store(db, "seta", "record4", DB_INSERT) != 0)
+		printf("db_store error for seta");
+
+	
 	db_close(db);
 	exit(0);
 }
